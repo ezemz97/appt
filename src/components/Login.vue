@@ -30,18 +30,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex xs12>
-                    <v-text-field
-                      name="confirmPassword"
-                      label="Confirm Password"
-                      id="confirmPassword"
-                      v-model="confirmPassword"
-                      type="password"
-                      :rules="[comparePasswords]"></v-text-field>
-                  </v-flex>
-                </v-layout>
-                <v-layout row>
-                  <v-flex xs12>
-                    <v-btn type="submit">Sign up</v-btn>
+                    <v-btn type="submit">Log in</v-btn>
                   </v-flex>
                 </v-layout>
               </form>
@@ -56,14 +45,13 @@
 
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
   data () {
     return {
       email: '',
-      password: '',
-      confirmPassword: ''
+      password: ''
     }
   },
   computed: {
@@ -84,7 +72,7 @@ export default {
   methods: {
     onSignup () {
       const auth = getAuth();
-      createUserWithEmailAndPassword(auth, this.email, this.password)
+      signInWithEmailAndPassword(auth, this.email, this.password)
       .then((user) => {
           this.$router.replace('/home')
         }).catch((err) => {

@@ -3,15 +3,17 @@
     
     <v-row align="center" justify="center">
       <register/>
+      <login/>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import Register from '../components/Register.vue'
+import Login from '../components/Login.vue'
 
 export default {
-  components: { Register },
+  components: { Register, Login },
   name: 'Home'
 }
 </script>
