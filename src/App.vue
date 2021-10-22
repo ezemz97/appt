@@ -1,32 +1,94 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app id="inspire">
+    <v-app-bar
+      app
+      color="deep-purple accent-4"
+      dark
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>GameMatch</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <!-- <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-filter</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn> -->
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-blue--text text--accent-4"
+        >
+          <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          :to="item.to"
+          link
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <v-container fluid>
+
+      <!-- If using vue-router -->
+      <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+  export default {
+    data: () => ({ 
+      drawer: false,
+      group: null,
+      items: [
+        { title: 'Home', icon: 'mdi-home', to: '/' },
+        { title: 'Profile', icon: 'mdi-account-circle-outline', to: '/profile' },
+        { title: 'Matches', icon: 'mdi-account-group', to: '/matches' },
+        { title: 'Settings', icon: 'mdi-cog', to: '/settings'},
+      ],
+    }),
 
-#nav {
-  padding: 30px;
-}
+    watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+  }
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped>
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
 </style>
